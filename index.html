@@ -1,0 +1,2089 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Evan Shattenkirk — Senior Underwriter, Institutional Group at LendingOne. Builder who ships production AI inside institutional finance." />
+<link rel="icon" href="data:," />
+<title>Evan Shattenkirk — Production AI for Institutional Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f4; --bg2:#ffffff; --ink:#131a22; --ink2:#3d4754; --muted:#6b7684;
+  --line:#e2e2dc; --line2:#d4d4cc;
+  --accent:#0b6b4f; --accent-ink:#ffffff; --accent-soft:#e6f2ec;
+  --amber:#9a5b00; --amber-soft:#fdf3e0;
+  --card:#ffffff; --nav:rgba(247,247,244,.92);
+  --shadow:0 1px 2px rgba(19,26,34,.05),0 8px 28px rgba(19,26,34,.06);
+  --video-bg:#111820; --video-ink:#e8eef2;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1319; --bg2:#121a23; --ink:#e8edf2; --ink2:#b9c3cf; --muted:#8b97a6;
+    --line:#243140; --line2:#2e3f52;
+    --accent:#3ecf9a; --accent-ink:#07130d; --accent-soft:#132a20;
+    --amber:#f0b35c; --amber-soft:#2c2110;
+    --card:#121a23; --nav:rgba(14,19,25,.92);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.3);
+    --video-bg:#0a0f14; --video-ink:#dbe6ee;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:var(--accent);color:var(--accent-ink)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:var(--nav);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:20px}
+.brand{font-weight:700;letter-spacing:-.01em;color:var(--ink);font-size:17px;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav-links{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{color:var(--ink2);font-size:14px;font-weight:500;padding:7px 11px;border-radius:7px}
+.nav-links a:hover{color:var(--ink);text-decoration:none;background:var(--accent-soft)}
+.nav-links a.cta{background:var(--ink);color:var(--bg);font-weight:600}
+.nav-links a.cta:hover{background:var(--accent);color:var(--accent-ink)}
+@media(max-width:760px){.nav-links a:not(.cta){display:none}}
+
+/* HERO */
+.hero{padding:72px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.55fr .85fr;gap:48px;align-items:start}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.avail{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);border:1px solid var(--line2);background:var(--card);padding:6px 12px;border-radius:999px}
+.avail i{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"Newsreader",Georgia,serif;font-size:clamp(44px,6.5vw,72px);line-height:1.02;letter-spacing:-.015em;font-weight:600;margin:22px 0 6px}
+.role{font-family:"Newsreader",Georgia,serif;font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:500;color:var(--ink2);margin:0 0 20px}
+.role strong{color:var(--ink);font-weight:600}
+.lede{font-size:18px;line-height:1.65;color:var(--ink2);max-width:56ch;margin:0 0 28px}
+.lede strong{color:var(--ink)}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:9px;font-weight:600;font-size:15px;border:1px solid transparent}
+.btn:hover{text-decoration:none}
+.btn-p{background:var(--ink);color:var(--bg)}
+.btn-p:hover{background:var(--accent);color:var(--accent-ink)}
+.btn-s{background:var(--card);color:var(--ink);border-color:var(--line2)}
+.btn-s:hover{border-color:var(--ink)}
+.factbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 22px 8px;box-shadow:var(--shadow)}
+.factbox h3{margin:0 0 12px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;color:var(--muted);font-weight:600}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+.fact b{font-weight:600;text-align:right}
+.fact span{color:var(--muted)}
+.fact:first-of-type{border-top:0}
+
+/* METRICS */
+.metrics{margin:56px 0 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.metrics{grid-template-columns:1fr 1fr}}
+.metric{padding:26px 22px;border-left:1px solid var(--line)}
+.metric:first-child{border-left:0;padding-left:0}
+@media(max-width:860px){.metric{padding-left:0}.metric:nth-child(3){border-left:0}}
+.metric .num{font-family:"Newsreader",Georgia,serif;font-size:clamp(30px,3.6vw,42px);font-weight:600;line-height:1;letter-spacing:-.01em}
+.metric .num em{font-style:normal;color:var(--accent)}
+.metric .lbl{margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.45}
+
+/* SECTIONS */
+section{padding:76px 0 0}
+.sec-head{max-width:720px;margin-bottom:36px}
+.sec-head .kicker{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.sec-head h2{font-family:"Newsreader",Georgia,serif;font-size:clamp(30px,4vw,42px);line-height:1.12;font-weight:600;letter-spacing:-.01em;margin:10px 0 12px}
+.sec-head p{color:var(--ink2);margin:0;font-size:17px}
+
+/* CASE STUDIES */
+.case{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:28px}
+.case-top{padding:34px 36px 0;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+@media(max-width:700px){.case-top{grid-template-columns:1fr;padding:26px 22px 0}.case-body{padding:0 22px 26px!important}.case-media{margin:0 22px 26px!important}}
+.case-top h3{font-family:"Newsreader",Georgia,serif;font-size:clamp(24px,3vw,32px);line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.case-top .sub{color:var(--muted);font-size:14.5px;margin:0}
+.impact-chip{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:12px 16px;text-align:center;min-width:170px}
+.impact-chip .big{font-family:"Newsreader",Georgia,serif;font-size:26px;font-weight:700;line-height:1.1;display:block}
+.impact-chip .small{font-size:12.5px;line-height:1.35;display:block;opacity:.85}
+.case-body{padding:6px 36px 30px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px}
+@media(max-width:860px){.case-body{grid-template-columns:1fr}}
+.case-body h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;color:var(--muted);margin:14px 0 8px;font-weight:600}
+.case-body p{margin:0;font-size:15px;color:var(--ink2);line-height:1.6}
+.case-body p strong{color:var(--ink)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:4px 9px;border:1px solid var(--line2);border-radius:999px;color:var(--ink2)}
+.case-media{margin:0 36px 34px;background:var(--video-bg);color:var(--video-ink);border-radius:12px;aspect-ratio:16/7.2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;position:relative;overflow:hidden}
+@media(max-width:700px){.case-media{aspect-ratio:auto;min-height:230px}}
+.play{width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.play::after{content:"";border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.case-media .vt{font-weight:600;font-size:16.5px;margin:0 0 4px;color:#fff}
+.case-media .vs{font-size:13.5px;color:#9fb0bf;margin:0;max-width:52ch;line-height:1.5}
+.case-media .vtag{position:absolute;top:14px;left:16px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#8fa5b8;border:1px solid #2c3d4d;padding:4px 9px;border-radius:999px}
+.shot-note{margin:0 36px 30px;font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line2);padding-top:14px}
+@media(max-width:700px){.shot-note{margin:0 22px 24px}}
+
+/* VIDEO DEMOS */
+.demo-block{margin:0 36px 10px}
+@media(max-width:700px){.demo-block{margin:0 22px 6px}}
+.demo-block video{display:block;width:100%;aspect-ratio:16/9;background:#0a0f14;border-radius:12px;border:1px solid var(--line)}
+.demo-note{font-size:13px;color:var(--muted);margin:10px 0 0;line-height:1.5}
+.chapters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.chapter{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;padding:7px 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);color:var(--ink2);cursor:pointer}
+.chapter:hover{border-color:var(--accent);color:var(--accent)}
+.chapter:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chapter b{color:var(--muted);font-weight:400;margin-left:5px}
+.iface{margin:22px 36px 34px;border-top:1px solid var(--line);padding-top:22px}
+@media(max-width:700px){.iface{margin:18px 22px 26px}}
+.iface h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;color:var(--muted);margin:0 0 6px;font-weight:600}
+.iface .iface-sub{font-size:13.5px;color:var(--muted);margin:0 0 18px}
+.iface-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.iface-grid{grid-template-columns:1fr}}
+.iface-grid figure{margin:0}
+.iface-grid a{display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.iface-grid img{display:block;width:100%;height:auto}
+.iface-grid figcaption{font-size:13.5px;color:var(--ink2);line-height:1.5;padding-top:8px}
+.ig-feature{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);padding:30px 32px 26px;margin-bottom:22px}
+@media(max-width:700px){.ig-feature{padding:24px 20px 20px}}
+.ig-feature h3{font-family:"Newsreader",Georgia,serif;font-size:clamp(22px,3vw,28px);margin:0 0 6px;font-weight:600;letter-spacing:-.01em}
+.ig-feature .ig-sub{color:var(--ink2);font-size:15px;line-height:1.6;margin:0 0 20px;max-width:72ch}
+.ig-feature .ig-sub strong{color:var(--ink)}
+.ig-feature .demo-block{margin:0}
+dialog.lightbox{border:0;padding:0;background:transparent;max-width:min(96vw,1400px);width:100%}
+dialog.lightbox::backdrop{background:rgba(10,15,20,.82)}
+dialog.lightbox img{display:block;width:100%;height:auto;border-radius:10px}
+dialog.lightbox .lb-close{position:absolute;top:10px;right:10px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:8px 14px;font-weight:600;cursor:pointer;font-size:14px}
+
+/* PLATFORM LIST */
+.plat{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+@media(max-width:760px){.plat{grid-template-columns:1fr}}
+.plat-item{padding:28px 30px;border-top:1px solid var(--line)}
+.plat-item:nth-child(-n+2){border-top:0}
+.plat-item:nth-child(even){border-left:1px solid var(--line)}
+@media(max-width:760px){.plat-item{border-left:0!important}.plat-item:nth-child(2){border-top:1px solid var(--line)}}
+.plat-item h3{margin:0 0 8px;font-size:18px;font-weight:600;letter-spacing:-.01em}
+.plat-item p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
+.plat-item p strong{color:var(--ink)}
+.plat-item .pnum{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:13px;font-weight:600;display:block;margin-bottom:10px}
+
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:900px){.prod-grid{grid-template-columns:1fr}}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.prod .status{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:999px;align-self:flex-start;margin-bottom:16px}
+.status-live{background:var(--accent-soft);color:var(--accent)}
+.status-public{background:var(--amber-soft);color:var(--amber)}
+.prod h3{font-family:"Newsreader",Georgia,serif;font-size:24px;margin:0 0 4px;font-weight:600}
+.prod .url{font-family:"IBM Plex Mono",monospace;font-size:13px;margin:0 0 14px}
+.prod p{color:var(--ink2);font-size:15px;line-height:1.6;margin:0 0 14px}
+.prod p strong{color:var(--ink)}
+.prod .foot{margin-top:auto;padding-top:8px}
+.prod .foot a{font-weight:600;font-size:15px}
+
+/* TIMELINE */
+.tl{border-top:1px solid var(--line2)}
+.tl-row{display:grid;grid-template-columns:190px 1fr;gap:28px;padding:24px 0;border-bottom:1px solid var(--line)}
+@media(max-width:700px){.tl-row{grid-template-columns:1fr;gap:6px}}
+.tl-when{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted);padding-top:3px}
+.tl-row h3{margin:0;font-size:17.5px;font-weight:600}
+.tl-row h3 span{color:var(--muted);font-weight:400}
+.tl-row p{margin:6px 0 0;color:var(--ink2);font-size:15px;max-width:68ch}
+
+/* STACK */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.stack-grid{grid-template-columns:1fr}}
+.stack-col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px}
+.stack-col h3{margin:0 0 14px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:600}
+.stack-col ul{list-style:none;margin:0;padding:0}
+.stack-col li{padding:7px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink2)}
+.stack-col li:first-child{border-top:0}
+.stack-col li b{color:var(--ink);font-weight:600}
+
+/* CONTACT */
+.contact{margin:84px 0 0;background:var(--ink);color:var(--bg);border-radius:18px;padding:52px 44px;display:grid;grid-template-columns:1.3fr .7fr;gap:36px}
+@media(max-width:760px){.contact{grid-template-columns:1fr;padding:36px 26px}}
+.contact h2{font-family:"Newsreader",Georgia,serif;font-size:clamp(28px,4vw,40px);margin:0 0 12px;font-weight:600;line-height:1.15}
+.contact p{margin:0;opacity:.82;font-size:16.5px;max-width:48ch}
+.contact-links{display:flex;flex-direction:column;gap:10px;align-self:center}
+.contact-links a{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:inherit;padding:13px 18px;border-radius:10px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;gap:12px}
+@media (prefers-color-scheme:dark){.contact-links a{background:rgba(0,0,0,.25)}}
+.contact-links a:hover{text-decoration:none;border-color:var(--accent)}
+.contact-links a span{opacity:.6;font-weight:400;font-family:"IBM Plex Mono",monospace;font-size:13px}
+footer{padding:34px 0 54px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.draft-flag{font-family:"IBM Plex Mono",monospace;font-size:12px}
+</style>
+  <style data-hatch-cvm-bundle></style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top" style="color:var(--ink)">Evan Shattenkirk<span>.</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#platform">Platform</a>
+      <a href="#products">Products</a>
+      <a href="#background">Background</a>
+      <a href="#stack">Stack</a>
+      <a class="cta" href="assets/Evan_Shattenkirk_Resume.pdf" download>Résumé ↓</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="avail"><i></i> Chicago, IL · LendingOne — Institutional Group</span>
+        <h1>Evan Shattenkirk</h1>
+        <p class="role">Senior Underwriter who <strong>builds the AI his group runs on.</strong></p>
+        <p class="lede">Builder who ships production AI inside institutional finance. Personally underwrote <strong>~$500MM in CRE</strong> as a CLO and large-portfolio specialist, including <strong>new construction and builder finance</strong>, and <strong>builds the underwriting models</strong> behind the work. From that seat he designed and deployed his group's AI stack: <strong>LLM agents, MCP servers, vectorized PostgreSQL, and React / FastAPI apps</strong>, a suite of production tools running daily across underwriting, credit, asset management, valuations, and the executive team.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-p" href="#work">See the work</a>
+          <a class="btn btn-s" href="assets/Evan_Shattenkirk_Resume.pdf" download>Download résumé</a>
+          <a class="btn btn-s" href="https://github.com/evanshattenkirk" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn-s" href="https://www.linkedin.com/in/evanshattenkirk" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <aside class="factbox" aria-label="At a glance">
+        <h3>At a glance</h3>
+        <div class="fact"><span>Current role</span><b>Senior Underwriter, Institutional</b></div>
+        <div class="fact"><span>Also</span><b>Lead, AI implementation</b></div>
+        <div class="fact"><span>Underwritten</span><b>~$500MM CRE</b></div>
+        <div class="fact"><span>Deals</span><b>$1MM–$134MM · 5–500 props</b></div>
+        <div class="fact"><span>Production tools</span><b>A suite, used daily</b></div>
+        <div class="fact"><span>Training</span><b>Wells Fargo credit program</b></div>
+        <div class="fact"><span>Education</span><b>UF Warrington, Finance ’22</b></div>
+        <div class="fact"><span>Open to</span><b>FDE · Applied AI · Tech PM</b></div>
+      </aside>
+    </div>
+
+    <div class="metrics" aria-label="Headline results">
+      <div class="metric"><div class="num">~$500<em>MM</em></div><div class="lbl">CRE personally underwritten, of the group's ~$1B in annual closings across 1,500+ properties</div></div>
+      <div class="metric"><div class="num">Days → <em>40 min</em></div><div class="lbl">Commercial appraisal review turnaround — 20-min AI-assisted review + 20-min sign-off</div></div>
+      <div class="metric"><div class="num">$3k+/mo → <em>&lt;$100</em></div><div class="lbl">Residential appraisal pipeline cost after replacing third-party SaaS; $0.02 per appraisal</div></div>
+      <div class="metric"><div class="num">A <em>suite</em></div><div class="lbl">of production tools owned end to end, in daily use across underwriting, credit, asset management, valuations, and the executive team</div></div>
+    </div>
+  </header>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="sec-head">
+      <div class="kicker">Selected work — LendingOne</div>
+      <h2>Production AI, built from the underwriter's seat</h2>
+      <p>Every tool below is in daily production use. I scoped each one with the teams who use it, architected and built it, and own the roadmap. Code is proprietary — the demos show the workflows, run on synthetic data.</p>
+    </div>
+
+    <article class="case">
+      <div class="case-top">
+        <div>
+          <h3>Commercial Appraisal Review</h3>
+          <p class="sub">Full-stack application · LLMs + custom AI agents · Team's standard workflow</p>
+        </div>
+        <div class="impact-chip"><span class="big">Days → ~40 min</span><span class="small">turnaround, ~25 commercial appraisals to date</span></div>
+      </div>
+      <div class="case-body">
+        <div><h4>The problem</h4><p>Commercial appraisal review took <strong>multiple days</strong> — manual read-throughs, inconsistent criteria between reviewers, and support hunted down report by report.</p></div>
+        <div><h4>What I built</h4><p>A full-stack review app using <strong>LLMs and custom AI agents</strong> that standardizes review criteria, surfaces red flags, and pulls supporting evidence from additional sources automatically.</p></div>
+        <div><h4>Impact</h4><p>Turnaround cut to <strong>~40 minutes</strong> — a 20-minute AI-assisted review plus a 20-minute human sign-off. Now the team's standard workflow across ~25 commercial appraisals.</p></div>
+      </div>
+      <div class="demo-block">
+        <video id="appraisaliq-video" controls playsinline preload="metadata" data-hatch-poster="assets/appraisaliq-poster.jpg" aria-label="AppraisalIQ demonstration with entirely fictional data">
+          <source data-hatch-src="assets/appraisaliq-demo.mp4" type="video/mp4">
+          <track kind="captions" data-hatch-src="assets/appraisaliq-captions.vtt" srclang="en" label="English">
+          Your browser cannot play this video. <a href="assets/appraisaliq-demo.mp4">Download the MP4.</a>
+        </video>
+        <nav class="chapters" aria-label="AppraisalIQ video chapters">
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="6">Upload <b>0:06</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="14">Automated checks <b>0:14</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="25">Evidence <b>0:25</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="34">Comp maps <b>0:34</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="46">Listing research <b>0:46</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="55">Speed and cost <b>0:55</b></button>
+          <button type="button" class="chapter" data-video="appraisaliq-video" data-time="67">Review and export <b>1:07</b></button>
+        </nav>
+        <p class="demo-note">Animated interface recreation. All properties, records, findings, locations, and costs are fictional.</p>
+      </div>
+      <div class="iface">
+        <h4>The interface</h4>
+        <p class="iface-sub">Interface recreation with fictional data. Select any view to enlarge.</p>
+        <div class="iface-grid">
+          <figure>
+            <a href="assets/ui-upload.jpg" class="lb-link"><img data-hatch-src="assets/ui-upload.jpg" alt="AppraisalIQ intake screen showing MISMO XML and PDF upload with batch grouping" loading="lazy"></a>
+            <figcaption>Intake: MISMO XML and PDF upload, batch grouping</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/ui-checks.jpg" class="lb-link"><img data-hatch-src="assets/ui-checks.jpg" alt="AppraisalIQ review summary showing checks by section with items needing review flagged" loading="lazy"></a>
+            <figcaption>Review summary: checks by section, items needing review flagged</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/ui-evidence.jpg" class="lb-link"><img data-hatch-src="assets/ui-evidence.jpg" alt="AppraisalIQ finding shown next to its source evidence in the report" loading="lazy"></a>
+            <figcaption>Finding next to its source evidence in the report</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/ui-comps.jpg" class="lb-link"><img data-hatch-src="assets/ui-comps.jpg" alt="AppraisalIQ valuation and comps view with sales and rental comparables on a map" loading="lazy"></a>
+            <figcaption>Valuation and comps: sales and rental comparables on the map</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/ui-costs.jpg" class="lb-link"><img data-hatch-src="assets/ui-costs.jpg" alt="AppraisalIQ AI usage and cost breakdown per report" loading="lazy"></a>
+            <figcaption>AI usage and cost breakdown per report</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/ui-checklist.jpg" class="lb-link"><img data-hatch-src="assets/ui-checklist.jpg" alt="AppraisalIQ review checklist with PDF and Excel export" loading="lazy"></a>
+            <figcaption>Review checklist and PDF / Excel export</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-top">
+        <div>
+          <h3>Residential Appraisal Review Pipeline</h3>
+          <p class="sub">Integrated data extraction · Replaced third-party SaaS</p>
+        </div>
+        <div class="impact-chip"><span class="big">&lt;1 min / report</span><span class="small">processing, down from 15–20 min manual extraction</span></div>
+      </div>
+      <div class="case-body">
+        <div><h4>The problem</h4><p>The group paid a third-party SaaS <strong>$3,000+/month plus $8 per appraisal</strong> — and still hand-extracted data for <strong>15–20 minutes per report</strong> on top of it.</p></div>
+        <div><h4>What I built</h4><p>An in-house review pipeline with <strong>integrated data extraction</strong>, replacing both the vendor and the manual step with a single automated flow.</p></div>
+        <div><h4>Impact</h4><p>Cost reduced to <strong>&lt;$100/month and $0.02 per appraisal</strong>, with processing <strong>under 1 minute per report</strong> — a ~97% cost reduction at higher throughput.</p></div>
+      </div>
+      <div class="case-media">
+        <span class="vtag">Demo video · 60–90 sec</span>
+        <div class="play" aria-hidden="true"></div>
+        <p class="vt">Demo placeholder — recording Oct 13</p>
+        <p class="vs">To film: drop in a report → extraction runs → structured fields and review output, timed on screen. Synthetic data only.</p>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-top">
+        <div>
+          <h3>Executive Exposure &amp; Delinquency Dashboard</h3>
+          <p class="sub">Interactive reporting · Source of truth for monthly C-Suite meetings</p>
+        </div>
+        <div class="impact-chip"><span class="big">6 sources → 1 view</span><span class="small">4 servicer reports + CRM export + investor report</span></div>
+      </div>
+      <div class="case-body">
+        <div><h4>The problem</h4><p>Exposure and delinquency questions meant stitching together <strong>four servicer reports, a CRM export, and an investor report</strong> by hand — slow, stale, and argued over in the room.</p></div>
+        <div><h4>What I built</h4><p>A dashboard that <strong>ingests all six sources</strong> into one interactive view — portfolio-wide or sliced by servicer — with drill-down to the loans behind any number.</p></div>
+        <div><h4>Impact</h4><p>Adopted as the <strong>source of truth for monthly C-Suite meetings</strong>. Questions that took days of prep now get answered live, in seconds.</p></div>
+      </div>
+      <div class="case-media">
+        <span class="vtag">Demo video · 60–90 sec</span>
+        <div class="play" aria-hidden="true"></div>
+        <p class="vt">Demo placeholder — recording Oct 13</p>
+        <p class="vs">To film: filter by servicer → drill into a delinquency bucket → answer one real exec question end to end. Round, synthetic figures only.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- PLATFORM -->
+  <section id="platform">
+    <div class="sec-head">
+      <div class="kicker">Underneath the tools</div>
+      <h2>The platform and the rest of the build-out</h2>
+      <p>The case studies run on shared infrastructure I architected — one data layer every agent and tool draws from, plus the internal systems around it.</p>
+    </div>
+    <div class="ig-feature">
+      <h3>IG Pipeline</h3>
+      <p class="ig-sub">A connected workspace for IG deals covering <strong>pipeline overview and filters, deal creation, conditions tracking, borrower email drafts, closing calendar, aggregation reporting, and Ask Pipeline answers with supporting evidence</strong>.</p>
+      <div class="demo-block">
+        <video id="ig-pipeline-video" controls playsinline preload="metadata" data-hatch-poster="assets/ig-pipeline-poster.jpg" aria-label="IG Pipeline demonstration with entirely fictional data">
+          <source data-hatch-src="assets/ig-pipeline-demo.mp4" type="video/mp4">
+          <track kind="captions" data-hatch-src="assets/ig-pipeline-captions.vtt" srclang="en" label="English">
+          Your browser cannot play this video. <a href="assets/ig-pipeline-demo.mp4">Download the MP4.</a>
+        </video>
+        <p class="demo-note">Animated reconstruction. All deals, borrowers, and figures are fictional.</p>
+      </div>
+    </div>
+    <div class="ig-feature">
+      <h3>IG QC</h3>
+      <p class="ig-sub">The Institutional Group's <strong>quality-control workspace</strong>: a deal-grouped review queue over the authorized pipeline, with loan and draw checklists (Perm and aggregation draws) and per-user Box document browsing scoped to each reviewer's access. A private worker is being built to run checks and retain evidence behind the published checklist interface. <strong>Final QC decisions and signoff stay with a designated human reviewer, by design.</strong></p>
+      <div class="tags"><span class="tag">Google Apps Script interface</span><span class="tag">Box document access</span><span class="tag">Deal-grouped queue</span><span class="tag">Human signoff</span></div>
+    </div>
+    <div class="plat">
+      <div class="plat-item"><span class="pnum">01</span><h3>Central data layer + MCP server</h3><p>Architected a <strong>centralized PostgreSQL database with vector embeddings</strong> and a custom <strong>MCP server</strong>, giving LLM agents and the suite of production tools shared access to loan, property, appraisal, pipeline, and due-diligence data.</p></div>
+      <div class="plat-item"><span class="pnum">02</span><h3>Automated servicer ingestion</h3><p>Multi-thousand-row servicer reports land in Google Drive, where a <strong>daily scheduled agent</strong> detects updates through an MCP connector, parses them, and writes them to the database — <strong>no manual entry</strong>.</p></div>
+      <div class="plat-item"><span class="pnum">03</span><h3>Proprietary CRM</h3><p>Built and deployed a CRM used by <strong>20 people</strong>, replacing an enterprise Monday.com subscription (30+ seats) and hourly outside-consultant fees — with tighter integration into underwriting workflows than the vendor tool had.</p></div>
+      <div class="plat-item"><span class="pnum">04</span><h3>Ops automation + AI guidelines</h3><p>Built a <strong>suite of Google Apps Script automations</strong>, including a Sheets-based loan operations system backed by Drive and Box that parses SharePoint files via Google Cloud, generates and follows up on emails automatically, and runs task management and exposure tracking. Also established the group's <strong>organizational AI guidelines</strong>.</p></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="sec-head">
+      <div class="kicker">Independent builds</div>
+      <h2>Shipped outside of work, too</h2>
+      <p>A live storefront builder, a space planner, a public trading engine, and an engineering intelligence platform for a family business, each built end to end.</p>
+    </div>
+    <div class="prod-grid">
+      <article class="prod">
+        <span class="status status-live">Live product</span>
+        <h3>Pastefront</h3>
+        <p class="url"><a href="https://pastefront.com" target="_blank" rel="noopener">pastefront.com ↗</a></p>
+        <p>Paste a <strong>CJ Dropshipping, AliExpress, or Printify</strong> link and Claude generates the branded store: product copy, target-margin pricing, and accessory suggestions. Built commerce stack: <strong>Stripe Connect checkout</strong>, automatic supplier ordering with tracking, restricted-product safety checks, and an <strong>owner dashboard</strong> with chat edits, offers, A/B tests, and analytics. Free to build and preview.</p>
+        <div class="foot"><a href="https://pastefront.com" target="_blank" rel="noopener">Visit Pastefront →</a></div>
+      </article>
+      <article class="prod">
+        <span class="status status-public">Public · Open source</span>
+        <h3>AgentDesk</h3>
+        <p class="url"><a href="https://github.com/evanshattenkirk/Trading-Agent" target="_blank" rel="noopener">github.com/evanshattenkirk/Trading-Agent ↗</a></p>
+        <p>Multi-strategy trading engine on Robinhood's Agentic Trading MCP — <strong>8 strategy books</strong> across SPY options, single-name options, and US equities. Deterministic Python core for signals, strikes, exits, and risk limits; Claude agents as advisory desks. Pre-registered rules, in/out-of-sample splits, and strict paper-to-live promotion gates.</p>
+        <div class="foot"><a href="https://github.com/evanshattenkirk/Trading-Agent" target="_blank" rel="noopener">Read the code →</a></div>
+      </article>
+      <article class="prod">
+        <span class="status status-public">Founder build · TypeScript</span>
+        <h3>Roomy</h3>
+        <p class="url"><a href="https://github.com/evanshattenkirk/spacePlanner" target="_blank" rel="noopener">github.com/evanshattenkirk/spacePlanner ↗</a></p>
+        <p>A space planner: <strong>draw floor plans with walls and doors</strong> (hinge and swing honored in exports), <strong>shop for furniture in context</strong> with sort and filter, automatic suggestions sized to fit each space, and affiliate links across Amazon, Wayfair, and Walmart. <strong>Share plans as images</strong>, with backup and restore, undo, a command menu, and a mobile-first touch UI.</p>
+        <div class="foot"><a href="https://github.com/evanshattenkirk/spacePlanner" target="_blank" rel="noopener">Read the code →</a></div>
+      </article>
+      <article class="prod">
+        <span class="status status-public">Client build · Private</span>
+        <h3>TAP Marine: TAP-EI</h3>
+        <p class="url">The Adam Project LLC · Fort Lauderdale, FL</p>
+        <p><strong>TAP-EI (TAP Marine Engineering Intelligence)</strong>: a multi-tenant portal on <strong>Next.js and Supabase/Postgres</strong>, with row-level security as the authorization layer and a <strong>Python worker</strong>. Source-cited engineering search and AI answers over vessel evidence and drawings, plus field capture, service reports, and CRM modules (work orders, quoting, invoicing). Alongside it, a <strong>local-first</strong> proposal database over all company files with AI agent Q&amp;A on a local model, so no data leaves the premises.</p>
+        <div class="foot"><a href="mailto:shattenkirke@gmail.com?subject=TAP%20Marine%20build">Ask me about it →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section id="background">
+    <div class="sec-head">
+      <div class="kicker">Background</div>
+      <h2>Finance first. That's the point.</h2>
+      <p>The AI work lands because it comes from a decade-deep credit seat — formal bank training, syndicated debt, and CLO execution before the first agent shipped.</p>
+    </div>
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-when">Jun 2024 — Present</div>
+        <div><h3>Senior Underwriter, Institutional Group <span>— LendingOne, Chicago (Remote)</span></h3>
+        <p>Lead institutional underwriting for CRE portfolios of $1MM–$134MM across 5–500 properties; designated underwriter for all large transactions, CLO deals, and specialty structures, including <strong>new construction and builder finance</strong>. <strong>Builds underwriting models</strong>; full credit analysis (DSCR/DY, NCF pro formas, fraud and inconsistency detection), plus term sheets, credit memos to BX for approval, and mentoring new underwriters. In parallel, leads AI implementation for the group: a suite of production tools used across underwriting, credit, asset management, and the executive team.</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-when">Jan — Feb 2024</div>
+        <div><h3>Senior Corporate Banking Analyst <span>— Grove Bank &amp; Trust, Miami</span></h3>
+        <p>Underwriting memos for participations in syndicated corporate debt and loan acquisitions, including projection, risk, and profitability models; built deal-analysis templates for underwriting and portfolio management.</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-when">Jul 2022 — Dec 2023</div>
+        <div><h3>Commercial Banking Portfolio Program Analyst <span>— Wells Fargo, Fort Lauderdale</span></h3>
+        <p>2022 Financial Analyst Cohort; six months of formal credit training in Charlotte. Coordinated underwriting of <strong>$2B+ in direct and operating exposure</strong> to companies with $100MM+ revenue; CRE underwriting across asset classes — valuations, sensitivity analyses, cap rate and market research, refinance risk.</p></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-when">Class of 2022</div>
+        <div><h3>B.S. Finance, Minor in Real Estate Finance <span>— University of Florida, Warrington</span></h3>
+        <p>GPA 3.54 · Dean's List. Gator Student Investment Fund, Energy Analyst — co-managed a ~$500K equity portfolio benchmarked to the S&amp;P 500 with DCF and comps-based pitches.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="sec-head">
+      <div class="kicker">Stack</div>
+      <h2>What I build with</h2>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col"><h3>Engineering</h3><ul>
+        <li><b>Python</b> · TypeScript · SQL</li><li><b>React</b> · FastAPI · Tailwind</li><li><b>PostgreSQL</b> · Supabase · Snowflake · MongoDB</li><li>Google Apps Script · Excel VBA</li><li>Regression tests, branch-based development, separate test and production environments</li>
+      </ul></div>
+      <div class="stack-col"><h3>AI &amp; Automation</h3><ul>
+        <li><b>LLM agents</b> · MCP servers</li><li><b>RAG pipelines</b> · vector embeddings</li><li>Document extraction at scale</li><li>Scheduled agents · workflow automation</li><li>Claude, Codex, and Cursor used daily</li>
+      </ul></div>
+      <div class="stack-col"><h3>Finance</h3><ul>
+        <li><b>CRE &amp; corporate credit</b> underwriting</li><li>Financial modeling · DSCR / DY analysis</li><li><b>CLO execution</b> · portfolio management</li><li>Loan servicing · Bloomberg</li><li>Bridge, BTR, bridge-to-perm, <b>new construction and builder finance</b></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact" id="contact">
+    <div>
+      <h2>Building AI inside a finance org? Let's talk.</h2>
+      <p>I'm interested in Forward Deployed, Applied AI, Deployment, and Technical PM roles — and in comparing notes with anyone shipping AI where the data can't leave the building.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:shattenkirke@gmail.com">Email <span>shattenkirke@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/evanshattenkirk" target="_blank" rel="noopener">LinkedIn <span>/in/evanshattenkirk</span></a>
+      <a href="https://github.com/evanshattenkirk" target="_blank" rel="noopener">GitHub <span>@evanshattenkirk</span></a>
+      <a href="assets/Evan_Shattenkirk_Resume.pdf" download>Résumé <span>PDF · 2 pages</span></a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Evan Shattenkirk · Chicago, IL</span>
+    <span class="draft-flag">Also published on GitHub Pages</span>
+  </footer>
+
+</div>
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged interface view">
+  <button type="button" class="lb-close" id="lb-close">Close</button>
+  <img id="lb-img" alt="">
+</dialog>
+
+<script data-hatch-cvm-bundle>(() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  function __accessProp(key) {
+    return this[key];
+  }
+  var __toCommonJS = (from) => {
+    var entry = (__moduleCache ??= new WeakMap).get(from), desc;
+    if (entry)
+      return entry;
+    entry = __defProp({}, "__esModule", { value: true });
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (var key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(entry, key))
+          __defProp(entry, key, {
+            get: __accessProp.bind(from, key),
+            enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+          });
+    }
+    __moduleCache.set(from, entry);
+    return entry;
+  };
+  var __moduleCache;
+
+  // src/prelude.ts
+  var exports_prelude = {};
+
+  // src/tunnel-url.ts
+  var B64_CHUNK = 32768;
+  function computeSelfBaseDir(selfHref) {
+    if (!selfHref)
+      return "";
+    let h = selfHref;
+    const hash = h.indexOf("#");
+    if (hash >= 0)
+      h = h.slice(0, hash);
+    const q = h.indexOf("?");
+    if (q >= 0)
+      h = h.slice(0, q);
+    const slash = h.lastIndexOf("/");
+    return slash >= 0 ? h.slice(0, slash + 1) : "";
+  }
+  function isSelfOriginUrl(u, selfBaseDir, selfHref, objectUrls) {
+    if (!selfBaseDir || !u.startsWith(selfBaseDir))
+      return false;
+    if (u === selfHref)
+      return false;
+    return !objectUrls.has(u);
+  }
+  function isExternalUrl(u, selfBaseDir, selfHref, objectUrls) {
+    if (!u)
+      return false;
+    if (u.startsWith("#"))
+      return true;
+    if (isSelfOriginUrl(u, selfBaseDir, selfHref, objectUrls))
+      return false;
+    if (u.startsWith("data:") || u.startsWith("blob:"))
+      return true;
+    if (u.startsWith("about:") || u.startsWith("javascript:"))
+      return true;
+    if (u.startsWith("//"))
+      return true;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(u)) {
+      return true;
+    }
+    return false;
+  }
+  function normalizeToRelPath(u, selfBaseDir) {
+    let s = u;
+    if (selfBaseDir && s.startsWith(selfBaseDir)) {
+      s = s.slice(selfBaseDir.length);
+    }
+    s = s.replace(/^\.\//, "");
+    s = s.replace(/^\/+/, "");
+    return s;
+  }
+  function blobInner(base, NativeURL) {
+    if (base == null)
+      return null;
+    const s = typeof base === "string" ? base : base instanceof NativeURL ? base.href : String(base);
+    return s.startsWith("blob:") ? s.slice("blob:".length) : null;
+  }
+  var OPAQUE_BLOB_ORIGIN = "https://hatch-cvm-opaque.invalid";
+  function isAbsoluteUrlString(s, NativeURL) {
+    try {
+      new NativeURL(s);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  function resolveAgainstBlobBase(u, base, NativeURL) {
+    const inner = blobInner(base, NativeURL);
+    if (inner === null)
+      return null;
+    if (isAbsoluteUrlString(inner, NativeURL)) {
+      return new NativeURL("blob:" + new NativeURL(u, inner).href);
+    }
+    const slash = inner.indexOf("/");
+    const token = slash >= 0 ? inner.slice(0, slash) : inner;
+    const path = slash >= 0 ? inner.slice(slash) : "/";
+    const resolved = new NativeURL(u, OPAQUE_BLOB_ORIGIN + path);
+    return new NativeURL("blob:" + token + resolved.pathname + resolved.search + resolved.hash);
+  }
+  function resolveTunnelUrl(url, base, selfHref, NativeURL) {
+    const u = url == null ? "" : typeof url === "string" ? url : url instanceof NativeURL ? url.href : String(url);
+    const uAbsolute = /^[a-z][a-z0-9+.-]*:/i.test(u) || u.startsWith("//");
+    if (base !== undefined && base !== null && !uAbsolute) {
+      const viaBlob = resolveAgainstBlobBase(u, base, NativeURL);
+      if (viaBlob !== null)
+        return viaBlob;
+      return new NativeURL(u, base);
+    }
+    if (!uAbsolute && selfHref) {
+      const viaBlob = resolveAgainstBlobBase(u, selfHref, NativeURL);
+      if (viaBlob !== null)
+        return viaBlob;
+    }
+    return base === undefined ? new NativeURL(u) : new NativeURL(u, base);
+  }
+  function bytesToBase64(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+    let s = "";
+    for (let i = 0;i < u8.length; i += B64_CHUNK) {
+      s += String.fromCharCode.apply(null, Array.from(u8.subarray(i, i + B64_CHUNK)));
+    }
+    return btoa(s);
+  }
+  function base64ToBytes(b64) {
+    const bin = atob(b64);
+    const out = new Uint8Array(bin.length);
+    for (let i = 0;i < bin.length; i++)
+      out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function importMetaUrl(selfHref, selfBaseDir) {
+    return selfBaseDir ? `${selfBaseDir}assets/cvm-bundle.js` : selfHref;
+  }
+
+  // src/download-links.ts
+  function installDownloadLinks(fetchAsset, isExternalUrl, revokeDelayMs) {
+    document.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const anchor = event.composedPath().find((node) => node instanceof HTMLAnchorElement);
+      if (!anchor?.hasAttribute("download"))
+        return;
+      const href = anchor.getAttribute("href");
+      if (!href || isExternalUrl(href))
+        return;
+      event.preventDefault();
+      const filename = anchor.download || resourceFilename(href);
+      (async () => {
+        const response = await fetchAsset(href);
+        if (!response.ok) {
+          throw new Error(`Artifact download failed: HTTP ${response.status}`);
+        }
+        const url = URL.createObjectURL(await response.blob());
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.hidden = true;
+        document.body.appendChild(link);
+        try {
+          link.click();
+        } finally {
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), revokeDelayMs);
+        }
+      })().catch((error) => reportError(error));
+    });
+  }
+  function resourceFilename(href) {
+    const path = new URL(href, document.baseURI).pathname;
+    const name = path.slice(path.lastIndexOf("/") + 1);
+    try {
+      return decodeURIComponent(name);
+    } catch {
+      return name;
+    }
+  }
+
+  // src/fragment-links.ts
+  function installFragmentLinks() {
+    if (!location.href.startsWith("blob:null/"))
+      return;
+    const NativeURL = URL;
+    const pushState = history.pushState.bind(history);
+    const replaceState = history.replaceState.bind(history);
+    window.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const anchor = event.composedPath().find((node) => node instanceof HTMLAnchorElement);
+      if (!anchor || anchor.hasAttribute("download"))
+        return;
+      const targetName = anchor.getAttribute("target") ?? document.querySelector("base[target]")?.getAttribute("target") ?? "";
+      if (targetName !== "" && targetName.toLowerCase() !== "_self")
+        return;
+      const href = anchor.getAttribute("href");
+      if (!href?.startsWith("#"))
+        return;
+      const oldURL = location.href;
+      const nextURL = new NativeURL(href, oldURL);
+      event.preventDefault();
+      const changed = nextURL.href !== oldURL;
+      if (changed) {
+        pushState(null, "", nextURL.href);
+      } else {
+        replaceState(null, "", nextURL.href);
+      }
+      window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
+      const target = fragmentTarget(nextURL.hash);
+      if (target) {
+        target.scrollIntoView();
+        if (target !== document.documentElement && (target instanceof HTMLElement || target instanceof SVGElement)) {
+          const hadTabIndex = target.hasAttribute("tabindex");
+          if (!hadTabIndex)
+            target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+          if (!hadTabIndex)
+            target.removeAttribute("tabindex");
+        }
+      }
+      if (changed) {
+        queueMicrotask(() => window.dispatchEvent(new HashChangeEvent("hashchange", {
+          oldURL,
+          newURL: nextURL.href
+        })));
+      }
+    });
+  }
+  function fragmentTarget(hash) {
+    const bytes = hash.slice(1).replace(/%([0-9a-f]{2})/gi, (_match, hex) => String.fromCharCode(parseInt(hex, 16)));
+    const fragment = new TextDecoder().decode(Uint8Array.from(bytes, (byte) => byte.charCodeAt(0)));
+    if (fragment === "")
+      return document.documentElement;
+    const idTarget = document.getElementById(fragment);
+    if (idTarget)
+      return idTarget;
+    const namedTarget = Array.from(document.getElementsByName(fragment)).find((node) => node instanceof HTMLAnchorElement);
+    return namedTarget ?? (fragment.toLowerCase() === "top" ? document.documentElement : null);
+  }
+
+  // src/prelude.ts
+  (function installTunnel() {
+    installFragmentLinks();
+    let port = null;
+    let portReadyResolve = null;
+    const portReady = new Promise((res) => {
+      portReadyResolve = res;
+    });
+    const pending = new Map;
+    const openWs = new Map;
+    function newId() {
+      return Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
+    }
+    function bytesToB64(bytes) {
+      return bytesToBase64(bytes);
+    }
+    function b64ToBytes(b64) {
+      return base64ToBytes(b64);
+    }
+    async function httpReq(method, path, body, headers) {
+      const p = port ?? await portReady;
+      const id = newId();
+      const headerArr = [];
+      if (headers) {
+        const h = new Headers(headers);
+        h.forEach((v, k) => headerArr.push([k, v]));
+      }
+      let bodyB64 = "";
+      if (body != null && body !== "") {
+        let bytes;
+        if (typeof body === "string") {
+          bytes = new TextEncoder().encode(body);
+        } else if (body instanceof ArrayBuffer) {
+          bytes = new Uint8Array(body);
+        } else if (body instanceof Uint8Array) {
+          bytes = body;
+        } else if (body instanceof Blob) {
+          bytes = new Uint8Array(await body.arrayBuffer());
+        } else if (body instanceof FormData) {
+          const boundary = "----HatchBoundary" + Math.random().toString(36).slice(2);
+          let s = "";
+          for (const [k, v] of body.entries()) {
+            s += `--${boundary}\r
+Content-Disposition: form-data; name="${k}"`;
+            if (v instanceof File) {
+              s += `; filename="${v.name}"\r
+Content-Type: ${v.type || "application/octet-stream"}\r
+\r
+`;
+              const fb = new Uint8Array(await v.arrayBuffer());
+              s += new TextDecoder("latin1").decode(fb);
+            } else {
+              s += `\r
+\r
+${v}`;
+            }
+            s += `\r
+`;
+          }
+          s += `--${boundary}--\r
+`;
+          bytes = new TextEncoder().encode(s);
+          headerArr.push([
+            "content-type",
+            `multipart/form-data; boundary=${boundary}`
+          ]);
+        } else {
+          bytes = new TextEncoder().encode(String(body));
+        }
+        bodyB64 = bytesToB64(bytes);
+      }
+      return new Promise((resolve, reject) => {
+        pending.set(id, {
+          resolve: (msg) => {
+            if (msg.error) {
+              reject(new Error(msg.error.message ?? "tunnel error"));
+              return;
+            }
+            resolve({
+              status: msg.status,
+              headers: msg.headers,
+              bytes: msg.bodyB64 ? b64ToBytes(msg.bodyB64) : new Uint8Array(0)
+            });
+          },
+          reject
+        });
+        p.postMessage({
+          type: "http.req",
+          id,
+          method,
+          path,
+          headers: headerArr,
+          bodyB64
+        });
+      });
+    }
+    async function tunnelFetch(input, init) {
+      let urlStr;
+      let method = init?.method ?? "GET";
+      let headers = init?.headers;
+      let body = init?.body;
+      if (input instanceof Request) {
+        urlStr = input.url;
+        method = init?.method ?? input.method;
+        headers = init?.headers ?? input.headers;
+        if (body == null && input.body) {
+          body = await input.arrayBuffer();
+        }
+      } else {
+        urlStr = String(input);
+      }
+      if (isExternalUrl2(urlStr)) {
+        return originalFetch(input, init);
+      }
+      const relPath = normalizeToRelPath2(urlStr);
+      const r = await httpReq(method, relPath, body ?? null, headers);
+      const respHeaders = new Headers;
+      for (const [k, v] of r.headers ?? [])
+        respHeaders.set(k, v);
+      return new Response(r.bytes, {
+        status: r.status,
+        headers: respHeaders
+      });
+    }
+
+    class TunnelWebSocket extends EventTarget {
+      readyState = 0;
+      static CONNECTING = 0;
+      static OPEN = 1;
+      static CLOSING = 2;
+      static CLOSED = 3;
+      CONNECTING = 0;
+      OPEN = 1;
+      CLOSING = 2;
+      CLOSED = 3;
+      url;
+      binaryType = "blob";
+      bufferedAmount = 0;
+      protocol = "";
+      extensions = "";
+      onopen = null;
+      onmessage = null;
+      onclose = null;
+      onerror = null;
+      _id;
+      constructor(urlIn, _protocols) {
+        super();
+        const urlStr = String(urlIn);
+        this.url = urlStr;
+        this._id = newId();
+        openWs.set(this._id, this);
+        const path = normalizeToRelPath2(urlStr);
+        (async () => {
+          const p = port ?? await portReady;
+          p.postMessage({ type: "ws.open", id: this._id, path });
+        })();
+      }
+      _handle(msg) {
+        if (msg.type === "ws.opened") {
+          this.readyState = 1;
+          const ev = new Event("open");
+          this.onopen?.(ev);
+          this.dispatchEvent(ev);
+        } else if (msg.type === "ws.message") {
+          const bytes = msg.dataB64 ? b64ToBytes(msg.dataB64) : new Uint8Array(0);
+          let data;
+          if (msg.binary) {
+            data = this.binaryType === "arraybuffer" ? bytes.buffer : new Blob([bytes]);
+          } else {
+            data = new TextDecoder().decode(bytes);
+          }
+          const ev = new MessageEvent("message", { data });
+          this.onmessage?.(ev);
+          this.dispatchEvent(ev);
+        } else if (msg.type === "ws.closed") {
+          this.readyState = 3;
+          const ev = new CloseEvent("close", {
+            code: msg.code ?? 1000,
+            reason: msg.reason ?? ""
+          });
+          this.onclose?.(ev);
+          this.dispatchEvent(ev);
+          openWs.delete(this._id);
+        } else if (msg.type === "ws.error") {
+          const ev = new Event("error");
+          this.onerror?.(ev);
+          this.dispatchEvent(ev);
+        }
+      }
+      send(data) {
+        (async () => {
+          const p = port ?? await portReady;
+          let bytes;
+          let binary = false;
+          if (typeof data === "string") {
+            bytes = new TextEncoder().encode(data);
+          } else if (data instanceof Blob) {
+            bytes = new Uint8Array(await data.arrayBuffer());
+            binary = true;
+          } else if (data instanceof ArrayBuffer) {
+            bytes = new Uint8Array(data);
+            binary = true;
+          } else if (ArrayBuffer.isView(data)) {
+            bytes = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+            binary = true;
+          } else {
+            bytes = new TextEncoder().encode(String(data));
+          }
+          p.postMessage({
+            type: "ws.send",
+            id: this._id,
+            dataB64: bytesToB64(bytes),
+            binary
+          });
+        })();
+      }
+      close(code, reason) {
+        (async () => {
+          const p = port ?? await portReady;
+          p.postMessage({ type: "ws.close", id: this._id, code, reason });
+        })();
+      }
+      addEventListener(type, listener, options) {
+        super.addEventListener(type, listener, options);
+      }
+    }
+
+    class TunnelXHR extends EventTarget {
+      static UNSENT = 0;
+      static OPENED = 1;
+      static HEADERS_RECEIVED = 2;
+      static LOADING = 3;
+      static DONE = 4;
+      UNSENT = 0;
+      OPENED = 1;
+      HEADERS_RECEIVED = 2;
+      LOADING = 3;
+      DONE = 4;
+      readyState = 0;
+      status = 0;
+      statusText = "";
+      responseText = "";
+      response = null;
+      responseType = "";
+      responseURL = "";
+      withCredentials = false;
+      timeout = 0;
+      upload = new EventTarget;
+      onreadystatechange = null;
+      onload = null;
+      onerror = null;
+      onloadend = null;
+      onabort = null;
+      onprogress = null;
+      ontimeout = null;
+      _method = "GET";
+      _url = "";
+      _reqHeaders = [];
+      _respHeaders = [];
+      _aborted = false;
+      open(method, url) {
+        this._method = method;
+        this._url = url;
+        this.readyState = 1;
+        this.onreadystatechange?.();
+      }
+      setRequestHeader(name, value) {
+        this._reqHeaders.push([name, value]);
+      }
+      getAllResponseHeaders() {
+        return this._respHeaders.map(([k, v]) => `${k}: ${v}`).join(`\r
+`);
+      }
+      getResponseHeader(name) {
+        const lc = name.toLowerCase();
+        const hit = this._respHeaders.find(([k]) => k.toLowerCase() === lc);
+        return hit ? hit[1] : null;
+      }
+      abort() {
+        this._aborted = true;
+        this.readyState = 0;
+      }
+      send(body) {
+        if (isExternalUrl2(this._url)) {
+          const real = new originalXHR;
+          real.open(this._method, this._url);
+          for (const [k, v] of this._reqHeaders)
+            real.setRequestHeader(k, v);
+          real.onload = () => {
+            this.status = real.status;
+            this.responseText = real.responseText;
+            this.response = real.response;
+            this.readyState = 4;
+            this.onreadystatechange?.();
+            this.onload?.();
+            this.onloadend?.();
+            this.dispatchEvent(new Event("load"));
+          };
+          real.onerror = () => {
+            this.onerror?.();
+            this.dispatchEvent(new Event("error"));
+          };
+          real.send(body);
+          return;
+        }
+        const relPath = normalizeToRelPath2(this._url);
+        httpReq(this._method, relPath, body ?? null, this._reqHeaders).then((r) => {
+          if (this._aborted)
+            return;
+          this.status = r.status;
+          this._respHeaders = r.headers ?? [];
+          this.responseText = new TextDecoder().decode(r.bytes);
+          if (this.responseType === "arraybuffer") {
+            this.response = r.bytes.buffer;
+          } else if (this.responseType === "blob") {
+            this.response = new Blob([r.bytes]);
+          } else if (this.responseType === "json") {
+            try {
+              this.response = JSON.parse(this.responseText);
+            } catch {
+              this.response = null;
+            }
+          } else {
+            this.response = this.responseText;
+          }
+          this.readyState = 4;
+          this.onreadystatechange?.();
+          this.onload?.();
+          this.onloadend?.();
+          this.dispatchEvent(new Event("load"));
+        }, () => {
+          if (this._aborted)
+            return;
+          this.onerror?.();
+          this.dispatchEvent(new Event("error"));
+        });
+      }
+    }
+
+    class TunnelEventSource extends EventTarget {
+      static CONNECTING = 0;
+      static OPEN = 1;
+      static CLOSED = 2;
+      readyState = 0;
+      url;
+      withCredentials = false;
+      onopen = null;
+      onmessage = null;
+      onerror = null;
+      constructor(url) {
+        super();
+        this.url = String(url);
+        (async () => {
+          try {
+            const relPath = normalizeToRelPath2(this.url);
+            const r = await httpReq("GET", relPath, null, [
+              ["accept", "text/event-stream"]
+            ]);
+            this.readyState = 1;
+            this.onopen?.(new Event("open"));
+            const text = new TextDecoder().decode(r.bytes);
+            for (const block of text.split(/\n\n/)) {
+              const data = block.split(`
+`).filter((l) => l.startsWith("data:")).map((l) => l.slice(5).trim()).join(`
+`);
+              if (data) {
+                const ev = new MessageEvent("message", { data });
+                this.onmessage?.(ev);
+                this.dispatchEvent(ev);
+              }
+            }
+            this.readyState = 2;
+          } catch {
+            this.onerror?.(new Event("error"));
+          }
+        })();
+      }
+      close() {
+        this.readyState = 2;
+      }
+    }
+    const SELF_HREF = (() => {
+      try {
+        return globalThis.location?.href ?? "";
+      } catch {
+        return "";
+      }
+    })();
+    const SELF_BASE_DIR = computeSelfBaseDir(SELF_HREF);
+    const objectUrls = new Set;
+    function isSelfOriginUrl2(u) {
+      return isSelfOriginUrl(u, SELF_BASE_DIR, SELF_HREF, objectUrls);
+    }
+    function isExternalUrl2(u) {
+      return isExternalUrl(u, SELF_BASE_DIR, SELF_HREF, objectUrls);
+    }
+    function normalizeToRelPath2(u) {
+      return normalizeToRelPath(u, SELF_BASE_DIR);
+    }
+    const URL_ATTRS = new Set([
+      "src",
+      "srcset",
+      "href",
+      "poster",
+      "action",
+      "formaction",
+      "data",
+      "background",
+      "cite",
+      "longdesc",
+      "usemap",
+      "manifest"
+    ]);
+    const URL_STYLE_PROPS = new Set([
+      "background",
+      "backgroundImage",
+      "background-image",
+      "borderImage",
+      "border-image",
+      "borderImageSource",
+      "border-image-source",
+      "listStyle",
+      "list-style",
+      "listStyleImage",
+      "list-style-image",
+      "cursor",
+      "mask",
+      "maskImage",
+      "mask-image",
+      "webkitMask",
+      "-webkit-mask",
+      "webkitMaskImage",
+      "-webkit-mask-image",
+      "content",
+      "src"
+    ]);
+    const __BLOB_CACHE_MAX = 256;
+    const __BLOB_REVOKE_DELAY_MS = 30000;
+    const blobCache = new Map;
+    const blobStats = {
+      created: 0,
+      revoked: 0,
+      hits: 0,
+      misses: 0,
+      inFlightRevokes: 0
+    };
+    function __evictIfOverCap() {
+      while (blobCache.size > __BLOB_CACHE_MAX) {
+        const oldestKey = blobCache.keys().next().value;
+        if (oldestKey === undefined)
+          break;
+        const ent = blobCache.get(oldestKey);
+        blobCache.delete(oldestKey);
+        blobStats.inFlightRevokes++;
+        const t = setTimeout(() => {
+          ent.url.then((u) => {
+            if (typeof u === "string" && u.startsWith("blob:")) {
+              try {
+                URL.revokeObjectURL(u);
+                blobStats.revoked++;
+              } catch {}
+            }
+          }).finally(() => {
+            blobStats.inFlightRevokes--;
+          });
+        }, __BLOB_REVOKE_DELAY_MS);
+        ent.pendingRevoke = t;
+      }
+    }
+    function resolveToBlobUrl(rel) {
+      if (isExternalUrl2(rel))
+        return Promise.resolve(rel);
+      const hashIdx = rel.indexOf("#");
+      const pathPart = hashIdx >= 0 ? rel.slice(0, hashIdx) : rel;
+      const frag = hashIdx >= 0 ? rel.slice(hashIdx) : "";
+      const key = normalizeToRelPath2(pathPart);
+      let ent = blobCache.get(key);
+      if (ent) {
+        if (ent.pendingRevoke != null) {
+          clearTimeout(ent.pendingRevoke);
+          ent.pendingRevoke = undefined;
+          blobStats.inFlightRevokes--;
+        }
+        blobCache.delete(key);
+        blobCache.set(key, ent);
+        blobStats.hits++;
+      } else {
+        blobStats.misses++;
+        const url = httpReq("GET", key, null).then((r) => {
+          const ctHeader = r.headers.find(([k]) => k.toLowerCase() === "content-type");
+          const ct = ctHeader?.[1] ?? "application/octet-stream";
+          const blob = new Blob([r.bytes], { type: ct });
+          blobStats.created++;
+          return URL.createObjectURL(blob);
+        });
+        ent = { url };
+        blobCache.set(key, ent);
+        __evictIfOverCap();
+      }
+      return frag ? ent.url.then((b) => b + frag) : ent.url;
+    }
+    const HATCH_PIXEL_PREFIX = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const HATCH_FRAG = "#hatch=";
+    function isHatchPlaceholder(url) {
+      return url.indexOf(HATCH_PIXEL_PREFIX + HATCH_FRAG) === 0;
+    }
+    function unwrapHatchPlaceholder(url) {
+      if (!isHatchPlaceholder(url))
+        return null;
+      return decodeURIComponent(url.slice((HATCH_PIXEL_PREFIX + HATCH_FRAG).length));
+    }
+    async function rewriteCssTextAsync(text) {
+      const re = /url\(\s*(['"]?)([^'")]+)\1\s*\)/g;
+      const tasks = [];
+      let m;
+      while ((m = re.exec(text)) !== null) {
+        tasks.push({ match: m[0], index: m.index, url: m[2].trim() });
+      }
+      if (tasks.length === 0)
+        return text;
+      const resolved = await Promise.all(tasks.map(async (t) => {
+        if (t.url.startsWith("blob:"))
+          return t.url;
+        const unwrapped = unwrapHatchPlaceholder(t.url);
+        if (unwrapped != null) {
+          try {
+            return await resolveToBlobUrl(unwrapped);
+          } catch {
+            return t.url;
+          }
+        }
+        if (isExternalUrl2(t.url))
+          return t.url;
+        try {
+          return await resolveToBlobUrl(t.url);
+        } catch {
+          return t.url;
+        }
+      }));
+      let out = "";
+      let last = 0;
+      tasks.forEach((t, i) => {
+        out += text.slice(last, t.index);
+        out += `url("${resolved[i]}")`;
+        last = t.index + t.match.length;
+      });
+      out += text.slice(last);
+      return out;
+    }
+    function rewriteCssText(text) {
+      return rewriteCssTextAsync(text);
+    }
+    const mediaSourceLoads = new WeakMap;
+    window.addEventListener("error", (event) => {
+      const source = event.target;
+      if (!event.isTrusted || !(source instanceof HTMLSourceElement) || !(source.parentElement instanceof HTMLMediaElement) || source.hasAttribute("src"))
+        return;
+      const state = mediaSourceLoads.get(source);
+      if (state === "pending" || state === undefined && source.hasAttribute("data-hatch-src")) {
+        event.stopImmediatePropagation();
+      }
+    }, true);
+    function isElement(el) {
+      if (el instanceof Element)
+        return true;
+      const ownerWindow = el?.ownerDocument?.defaultView;
+      return ownerWindow != null && el instanceof ownerWindow.Element;
+    }
+    function setAttr(el, name, value, ...rest) {
+      if (!isElement(el)) {
+        return el.setAttribute(name, value, ...rest);
+      }
+      name = String(name);
+      if (value == null) {
+        if (name.toLowerCase() === "src" && el instanceof HTMLSourceElement) {
+          mediaSourceLoads.set(el, "settled");
+        }
+        try {
+          el.removeAttribute(name);
+        } catch {}
+        return;
+      }
+      const v = String(value);
+      const lcName = name.toLowerCase();
+      const tag = el.tagName?.toUpperCase();
+      if ((tag === "A" || tag === "BASE" || tag === "AREA") && lcName === "href") {
+        el.setAttribute(name, v);
+        return;
+      }
+      if (!URL_ATTRS.has(lcName) && lcName !== "style" && lcName !== "srcset") {
+        el.setAttribute(name, v);
+        return;
+      }
+      if (lcName === "srcset") {
+        const parts = v.split(",").map((s) => s.trim()).filter(Boolean);
+        Promise.all(parts.map(async (p) => {
+          const segs = p.split(/\s+/);
+          const url = segs[0];
+          const rest = segs.slice(1).join(" ");
+          if (isExternalUrl2(url))
+            return p;
+          const resolved = await resolveToBlobUrl(url);
+          return rest ? `${resolved} ${rest}` : resolved;
+        })).then((rebuilt) => {
+          try {
+            el.setAttribute("srcset", rebuilt.join(", "));
+          } catch {}
+        });
+        return;
+      }
+      if (URL_ATTRS.has(lcName)) {
+        const isMediaSource = tag === "SOURCE" && lcName === "src";
+        if (isExternalUrl2(v)) {
+          if (isMediaSource)
+            mediaSourceLoads.set(el, "settled");
+          el.setAttribute(name, v);
+          return;
+        }
+        if (isMediaSource)
+          mediaSourceLoads.set(el, "pending");
+        if (tag === "IMG" || tag === "VIDEO" && lcName === "poster") {
+          el.setAttribute(name, TRANSPARENT_PIXEL);
+        }
+        resolveToBlobUrl(v).then((blobUrl) => {
+          if (isMediaSource)
+            mediaSourceLoads.set(el, "settled");
+          try {
+            el.setAttribute(name, blobUrl);
+            if (isMediaSource) {
+              const media = el.parentElement;
+              if (media instanceof HTMLMediaElement && media.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+                const nextSibling = el.nextSibling;
+                el.remove();
+                media.insertBefore(el, nextSibling);
+              }
+            }
+          } catch {}
+        }, () => {
+          if (isMediaSource) {
+            mediaSourceLoads.set(el, "settled");
+            el.dispatchEvent(new Event("error"));
+          }
+        });
+        return;
+      }
+      if (lcName === "style") {
+        setStyleAttr(el, v);
+        return;
+      }
+      el.setAttribute(name, v);
+    }
+    function setAttrNS(el, ns, name, value, ...rest) {
+      if (!isElement(el)) {
+        return el.setAttributeNS(ns, name, value, ...rest);
+      }
+      name = String(name);
+      if (value == null) {
+        try {
+          el.removeAttributeNS(ns ?? null, name);
+        } catch {}
+        return;
+      }
+      const v = String(value);
+      const lcName = name.split(":").pop().toLowerCase();
+      if (lcName === "href" && URL_ATTRS.has("href")) {
+        if (isExternalUrl2(v)) {
+          el.setAttributeNS(ns ?? null, name, v);
+          return;
+        }
+        resolveToBlobUrl(v).then((blobUrl) => {
+          try {
+            el.setAttributeNS(ns ?? null, name, blobUrl);
+          } catch {}
+        }, () => {});
+        return;
+      }
+      try {
+        el.setAttributeNS(ns ?? null, name, v);
+      } catch {}
+    }
+    function setUrlProp(el, name, value) {
+      if (isElement(el)) {
+        setAttr(el, name.toLowerCase(), value);
+      } else {
+        el[name] = value;
+      }
+      return value;
+    }
+    const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const HTML_TAG_ATTRS = {
+      img: ["src", "srcset", "poster"],
+      image: ["href"],
+      video: ["src", "poster"],
+      audio: ["src"],
+      source: ["src", "srcset"],
+      script: ["src"],
+      link: ["href"],
+      iframe: ["src"],
+      embed: ["src"],
+      object: ["data"],
+      track: ["src"],
+      input: ["src"],
+      form: ["action"],
+      button: ["formaction"],
+      use: ["href"]
+    };
+    function rewriteHtmlString(html) {
+      return html.replace(/<([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*)>/g, (m, tag, attrs) => {
+        const lc = String(tag).toLowerCase();
+        const candidates = HTML_TAG_ATTRS[lc];
+        if (!candidates)
+          return m;
+        let out = attrs;
+        for (const a of candidates) {
+          const re = new RegExp(`\\b${a}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, "i");
+          const matched = out.match(re);
+          if (!matched)
+            continue;
+          const value = matched[2] ?? matched[3] ?? matched[4] ?? "";
+          if (isExternalUrl2(value))
+            continue;
+          out = out.replace(re, `data-hatch-${a}="${value.replace(/"/g, "&quot;")}"`);
+        }
+        const styleRe = /\bstyle\s*=\s*("([^"]*)"|'([^']*)')/i;
+        const sm = out.match(styleRe);
+        if (sm) {
+          const value = sm[2] ?? sm[3] ?? "";
+          if (value.includes("url(")) {
+            out = out.replace(styleRe, `data-hatch-style="${value.replace(/"/g, "&quot;")}"`);
+          }
+        }
+        return `<${tag}${out}>`;
+      });
+    }
+    const HTML_URL_ATTRS_BY_TAG = {
+      IMG: ["src", "srcset", "poster"],
+      IMAGE: ["href"],
+      VIDEO: ["src", "poster"],
+      AUDIO: ["src"],
+      SOURCE: ["src", "srcset"],
+      SCRIPT: ["src"],
+      LINK: ["href"],
+      IFRAME: ["src"],
+      EMBED: ["src"],
+      OBJECT: ["data"],
+      TRACK: ["src"],
+      INPUT: ["src"],
+      FORM: ["action"],
+      BUTTON: ["formaction"],
+      USE: ["href", "xlink:href"]
+    };
+    function rewriteSubtreeForTunnel(root) {
+      if (!root)
+        return;
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+      let n = walker.currentNode;
+      if (root.nodeType === 1)
+        processOne(root);
+      while (n = walker.nextNode()) {
+        processOne(n);
+      }
+    }
+    function processOne(el) {
+      const tag = (el.tagName ?? "").toUpperCase();
+      const attrs = HTML_URL_ATTRS_BY_TAG[tag];
+      if (attrs) {
+        for (const a of attrs) {
+          const v = el.getAttribute(a);
+          if (v == null)
+            continue;
+          if (isExternalUrl2(v))
+            continue;
+          el.setAttribute("data-hatch-" + a, v);
+          el.removeAttribute(a);
+        }
+      }
+      const style = el.getAttribute("style");
+      if (style && style.includes("url(")) {
+        el.setAttribute("data-hatch-style", style);
+        el.removeAttribute("style");
+      }
+    }
+    function parseAndCleanHtml(html) {
+      const tpl = document.createElement("template");
+      tpl.innerHTML = html;
+      rewriteSubtreeForTunnel(tpl.content);
+      return tpl.content;
+    }
+    function setInnerHTML(el, html, which = "innerHTML") {
+      const s = html == null ? "" : String(html);
+      if (which === "innerHTML" && typeof el.tagName === "string" && el.tagName.toUpperCase() === "TEMPLATE") {
+        try {
+          el.innerHTML = s;
+        } catch {}
+        return;
+      }
+      if (which === "outerHTML") {
+        const frag = parseAndCleanHtml(s);
+        const wrap = document.createElement("div");
+        wrap.appendChild(frag);
+        try {
+          el.outerHTML = wrap.innerHTML;
+        } catch {}
+        queueMicrotask(() => processDataHatchAttrs(document.body));
+        return;
+      }
+      const frag = parseAndCleanHtml(s);
+      try {
+        while (el.firstChild)
+          el.removeChild(el.firstChild);
+        el.appendChild(frag);
+      } catch {}
+      queueMicrotask(() => processDataHatchAttrs(el));
+    }
+    function insertAdjacentHTMLT(el, position, html) {
+      const s = html == null ? "" : String(html);
+      const frag = parseAndCleanHtml(s);
+      const wrap = document.createElement("template");
+      wrap.content.appendChild(frag);
+      try {
+        el.insertAdjacentHTML(position, wrap.innerHTML);
+      } catch {}
+      queueMicrotask(() => processDataHatchAttrs(document.body));
+    }
+    function processDataHatchAttrs(root) {
+      const SELECTORS = "[data-hatch-src], [data-hatch-href], [data-hatch-srcset], [data-hatch-poster], [data-hatch-action], [data-hatch-data], [data-hatch-style]";
+      root.querySelectorAll(SELECTORS).forEach((el) => {
+        const attrs = el.getAttributeNames();
+        for (const a of attrs) {
+          if (!a.startsWith("data-hatch-"))
+            continue;
+          const real = a.slice("data-hatch-".length);
+          const value = el.getAttribute(a) ?? "";
+          el.removeAttribute(a);
+          if (real === "style")
+            setStyleAttr(el, value);
+          else
+            setAttr(el, real, value);
+        }
+      });
+    }
+    const styleProxyCache = new WeakMap;
+    function getStyle(el) {
+      if (el == null)
+        return el;
+      let real;
+      try {
+        real = el.style;
+      } catch {
+        return;
+      }
+      if (real == null || typeof real !== "object" && typeof real !== "function") {
+        return real;
+      }
+      let proxy = styleProxyCache.get(real);
+      if (proxy)
+        return proxy;
+      proxy = new Proxy(real, {
+        get(target, prop, _receiver) {
+          const v = Reflect.get(target, prop, target);
+          if (typeof v === "function")
+            return v.bind(target);
+          return v;
+        },
+        set(target, prop, value) {
+          if (typeof prop === "string") {
+            setStyle(el, prop, value);
+            return true;
+          }
+          return Reflect.set(target, prop, value, target);
+        }
+      });
+      styleProxyCache.set(real, proxy);
+      return proxy;
+    }
+    function setStyle(el, propName, value) {
+      const v = value == null ? "" : String(value);
+      if (propName.startsWith("--")) {
+        rewriteCssText(v).then((rewritten) => {
+          try {
+            el.style.setProperty(propName, rewritten);
+          } catch {}
+        });
+        return;
+      }
+      if (URL_STYLE_PROPS.has(propName) && v.includes("url(")) {
+        rewriteCssText(v).then((rewritten) => {
+          try {
+            el.style[propName] = rewritten;
+          } catch {}
+        });
+        return;
+      }
+      try {
+        el.style[propName] = v;
+      } catch {}
+    }
+    function setStyleAttr(el, attrValue) {
+      if (!attrValue.includes("url(")) {
+        el.setAttribute("style", attrValue);
+        return;
+      }
+      rewriteCssText(attrValue).then((rewritten) => {
+        try {
+          el.setAttribute("style", rewritten);
+        } catch {}
+      });
+    }
+    function setStyleText(styleEl, text) {
+      if (!(styleEl instanceof HTMLStyleElement)) {
+        try {
+          styleEl.textContent = text;
+        } catch {}
+        return;
+      }
+      if (!text.includes("url(")) {
+        styleEl.textContent = text;
+        return;
+      }
+      rewriteCssText(text).then((rewritten) => {
+        try {
+          styleEl.textContent = rewritten;
+        } catch {}
+      });
+    }
+    function tunnelImage(_w, _h) {
+      const img = new originalImage;
+      const desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+      if (desc?.set) {
+        const origSet = desc.set;
+        const origGet = desc.get;
+        Object.defineProperty(img, "src", {
+          configurable: true,
+          get() {
+            return origGet.call(img);
+          },
+          set(v) {
+            if (v == null)
+              return origSet.call(img, "");
+            const s = String(v);
+            if (isExternalUrl2(s))
+              return origSet.call(img, s);
+            resolveToBlobUrl(s).then((b) => origSet.call(img, b), () => origSet.call(img, s));
+          }
+        });
+      }
+      return img;
+    }
+    function tunnelSendBeacon(url, data) {
+      tunnelFetch(url, { method: "POST", body: data, keepalive: true }).catch(() => {});
+      return true;
+    }
+    function tunnelWorker(_url) {
+      throw new Error("[__tunnel] new Worker() is not supported in Muse web artifacts.");
+    }
+    function tunnelImport(spec) {
+      throw new Error("[__tunnel] dynamic import() of '" + String(spec) + "' is not supported in Muse web artifacts.");
+    }
+    function installCssObserver() {
+      try {
+        const proto = window.CSSStyleSheet?.prototype;
+        if (proto) {
+          const origInsertRule = proto.insertRule;
+          proto.insertRule = function(rule, index) {
+            if (typeof rule === "string" && rule.includes("url(")) {
+              const idx = origInsertRule.call(this, rule, index);
+              rewriteCssText(rule).then((rewritten) => {
+                if (rewritten !== rule) {
+                  try {
+                    this.deleteRule(idx);
+                    origInsertRule.call(this, rewritten, idx);
+                  } catch {}
+                }
+              });
+              return idx;
+            }
+            return origInsertRule.call(this, rule, index);
+          };
+          const origReplace = proto.replace;
+          if (origReplace) {
+            proto.replace = function(text) {
+              if (typeof text === "string" && text.includes("url(")) {
+                return rewriteCssText(text).then((rewritten) => origReplace.call(this, rewritten));
+              }
+              return origReplace.call(this, text);
+            };
+          }
+          const origReplaceSync = proto.replaceSync;
+          if (origReplaceSync) {
+            proto.replaceSync = function(text) {
+              if (typeof text === "string" && text.includes("url(")) {
+                const ret = origReplaceSync.call(this, text);
+                rewriteCssText(text).then((rewritten) => {
+                  try {
+                    origReplaceSync.call(this, rewritten);
+                  } catch {}
+                });
+                return ret;
+              }
+              return origReplaceSync.call(this, text);
+            };
+          }
+        }
+      } catch (e) {}
+      function sweepSheet(sheet) {
+        try {
+          const rules = sheet.cssRules;
+          for (let i = 0;i < rules.length; i++) {
+            const rule = rules[i];
+            const txt = rule.cssText;
+            if (txt && (txt.includes(HATCH_FRAG) || txt.includes("url(") && !/url\(\s*["']?(blob:|https?:|data:image\/gif;base64,R0)/.test(txt))) {
+              rewriteCssText(txt).then((rewritten) => {
+                if (rewritten !== txt) {
+                  try {
+                    sheet.deleteRule(i);
+                    sheet.insertRule(rewritten, i);
+                  } catch {}
+                }
+              });
+            }
+          }
+        } catch {}
+      }
+      function sweepAll() {
+        for (const sheet of Array.from(document.styleSheets)) {
+          sweepSheet(sheet);
+        }
+      }
+      const mo = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          for (const node of Array.from(m.addedNodes)) {
+            if (node instanceof HTMLStyleElement) {
+              const txt = node.textContent ?? "";
+              if (txt.includes("url(")) {
+                rewriteCssText(txt).then((rewritten) => {
+                  if (rewritten !== txt) {
+                    try {
+                      node.textContent = rewritten;
+                    } catch {}
+                  }
+                });
+              }
+            } else if (node instanceof HTMLLinkElement && node.rel === "stylesheet") {
+              node.addEventListener("load", () => sweepSheet(node.sheet), { once: true });
+            }
+          }
+        }
+      });
+      mo.observe(document, { subtree: true, childList: true });
+      Promise.resolve().then(sweepAll);
+      setTimeout(sweepAll, 0);
+      setTimeout(sweepAll, 50);
+      setTimeout(sweepAll, 250);
+    }
+    function rewriteAuthoredHtml() {
+      const SELECTORS = "[data-hatch-src], [data-hatch-href], [data-hatch-srcset]";
+      document.querySelectorAll(SELECTORS).forEach((el) => {
+        const src = el.getAttribute("data-hatch-src");
+        const href = el.getAttribute("data-hatch-href");
+        const srcset = el.getAttribute("data-hatch-srcset");
+        if (src)
+          setAttr(el, "src", src);
+        if (href)
+          setAttr(el, "href", href);
+        if (srcset)
+          setAttr(el, "srcset", srcset);
+      });
+    }
+    let historyUrlWarned = false;
+    function warnHistoryUrlDropped(method, url) {
+      if (url === undefined || url === null)
+        return;
+      if (historyUrlWarned)
+        return;
+      historyUrlWarned = true;
+      try {
+        console.warn("[__tunnel] history." + method + "() was called with a URL; the URL was ignored. A Muse web artifact " + "renders in an opaque origin with no navigable URL of its own, so " + "the browser rejects any URL change. State kept in the URL will not " + "persist or survive a reload — keep it in component state, or in " + "the artifact's database through a server action.");
+      } catch {}
+    }
+    const originalFetch = globalThis.fetch?.bind(globalThis) ?? (() => {
+      throw new Error("no native fetch");
+    });
+    const originalXHR = globalThis.XMLHttpRequest;
+    const originalImage = globalThis.Image;
+    const tunnel = {
+      fetch: tunnelFetch,
+      XHR: TunnelXHR,
+      WebSocket: TunnelWebSocket,
+      EventSource: TunnelEventSource,
+      Image: tunnelImage,
+      Worker: tunnelWorker,
+      import: tunnelImport,
+      sendBeacon: tunnelSendBeacon,
+      setAttr,
+      setAttrNS,
+      setUrlProp,
+      setStyle,
+      getStyle,
+      setStyleAttr,
+      setStyleText,
+      setInnerHTML,
+      insertAdjacentHTML: insertAdjacentHTMLT,
+      rewriteCssText,
+      resolveToBlobUrl,
+      processDataHatchAttrs,
+      rewriteHtmlString,
+      _resolveUrlString: (v) => v,
+      _resolveCssValue: (v) => v,
+      _resolveCssText: (v) => v,
+      _resolveStyleProp: (v) => v,
+      _importMeta: {
+        get url() {
+          return importMetaUrl(SELF_HREF, SELF_BASE_DIR);
+        }
+      },
+      _state: {
+        get port() {
+          return port;
+        },
+        get inFlight() {
+          return pending.size;
+        },
+        get blobCacheSize() {
+          return blobCache.size;
+        },
+        get blobStats() {
+          return { ...blobStats };
+        }
+      }
+    };
+    globalThis.__tunnel = tunnel;
+    window.__tunnel = tunnel;
+    try {
+      globalThis.fetch = tunnelFetch;
+      window.fetch = tunnelFetch;
+      globalThis.XMLHttpRequest = TunnelXHR;
+      window.XMLHttpRequest = TunnelXHR;
+      globalThis.WebSocket = TunnelWebSocket;
+      window.WebSocket = TunnelWebSocket;
+      globalThis.EventSource = TunnelEventSource;
+      window.EventSource = TunnelEventSource;
+      const nav = globalThis.navigator;
+      if (nav && typeof nav.sendBeacon === "function") {
+        nav.sendBeacon = (url, data) => tunnelSendBeacon(url, data);
+      }
+      const NativeURL = globalThis.URL;
+      const TunnelURL = function(url, base) {
+        return resolveTunnelUrl(url, base, SELF_HREF, NativeURL);
+      };
+      TunnelURL.prototype = NativeURL.prototype;
+      for (const k of Object.getOwnPropertyNames(NativeURL)) {
+        if (k === "prototype" || k === "length" || k === "name")
+          continue;
+        try {
+          TunnelURL[k] = NativeURL[k];
+        } catch {}
+      }
+      globalThis.URL = TunnelURL;
+      window.URL = TunnelURL;
+    } catch {}
+    try {
+      const hist = globalThis.history;
+      if (hist && typeof hist.pushState === "function" && typeof hist.replaceState === "function") {
+        const nativePushState = hist.pushState.bind(hist);
+        const nativeReplaceState = hist.replaceState.bind(hist);
+        hist.pushState = function(state, title, url) {
+          warnHistoryUrlDropped("pushState", url);
+          return nativePushState(state, title ?? "");
+        };
+        hist.replaceState = function(state, title, url) {
+          warnHistoryUrlDropped("replaceState", url);
+          return nativeReplaceState(state, title ?? "");
+        };
+      }
+    } catch {}
+    try {
+      const nativeCreateObjectURL = URL.createObjectURL.bind(URL);
+      const nativeRevokeObjectURL = URL.revokeObjectURL.bind(URL);
+      URL.createObjectURL = function(obj) {
+        const created = nativeCreateObjectURL(obj);
+        try {
+          objectUrls.add(created);
+        } catch {}
+        return created;
+      };
+      URL.revokeObjectURL = function(objectUrl) {
+        try {
+          objectUrls.delete(objectUrl);
+        } catch {}
+        nativeRevokeObjectURL(objectUrl);
+      };
+    } catch {}
+    const announceEpoch = Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
+    let announceTimer = null;
+    function announce() {
+      try {
+        window.parent.postMessage({ type: "bundle:ready", epoch: announceEpoch }, "*");
+      } catch {}
+    }
+    function startAnnouncing() {
+      announce();
+      announceTimer = setInterval(() => {
+        if (port != null) {
+          if (announceTimer != null)
+            clearInterval(announceTimer);
+          announceTimer = null;
+          return;
+        }
+        announce();
+      }, 120);
+    }
+    function onParentMessage(ev) {
+      const data = ev.data;
+      if (!data || typeof data !== "object")
+        return;
+      if (data.type === "bundle:init-port" && ev.ports && ev.ports[0]) {
+        if (port != null)
+          return;
+        if (announceTimer != null) {
+          clearInterval(announceTimer);
+          announceTimer = null;
+        }
+        port = ev.ports[0];
+        port.onmessage = (pe) => {
+          const msg = pe.data;
+          if (!msg || typeof msg !== "object")
+            return;
+          if (msg.type === "http.res") {
+            const ent = pending.get(msg.id);
+            if (ent) {
+              pending.delete(msg.id);
+              ent.resolve(msg);
+            }
+          } else if (msg.type === "ws.opened" || msg.type === "ws.message" || msg.type === "ws.closed" || msg.type === "ws.error") {
+            openWs.get(msg.id)?._handle(msg);
+          }
+        };
+        port.start?.();
+        portReadyResolve?.(port);
+        installCssObserver();
+        rewriteAuthoredHtml();
+        try {
+          window.parent.postMessage({ type: "bundle:port-attached" }, "*");
+        } catch {}
+      }
+    }
+    window.addEventListener("message", onParentMessage);
+    installDownloadLinks(tunnelFetch, isExternalUrl2, __BLOB_REVOKE_DELAY_MS);
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      startAnnouncing();
+    } else {
+      document.addEventListener("DOMContentLoaded", startAnnouncing);
+    }
+  })();
+})();
+
+;
+(function () {
+  var sections = ['work', 'platform', 'products', 'background', 'stack'];
+  var links = {};
+  document.querySelectorAll('.nav-links a').forEach(function (a) {
+    var h = a.getAttribute('href');
+    if (h && h.charAt(0) === '#') links[h.slice(1)] = a;
+  });
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        Object.keys(links).forEach(function (k) {
+          __tunnel.setStyle(links[k], "color", '');
+          __tunnel.setStyle(links[k], "background", '');
+        });
+        var a = links[e.target.id];
+        if (a) {
+          __tunnel.setStyle(a, "color", 'var(--ink)');
+          __tunnel.setStyle(a, "background", 'var(--accent-soft)');
+        }
+      }
+    });
+  }, {
+    rootMargin: '-30% 0px -60% 0px'
+  });
+  sections.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+  document.querySelectorAll('.chapter').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var v = document.getElementById(btn.getAttribute('data-video'));
+      if (!v) return;
+      v.currentTime = Number(btn.getAttribute('data-time'));
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  });
+  var dlg = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lb-img');
+  if (dlg && typeof dlg.showModal === 'function') {
+    document.querySelectorAll('.lb-link').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var img = a.querySelector('img');
+        __tunnel.setUrlProp(lbImg, "src", a.getAttribute('href'));
+        lbImg.alt = img ? img.alt : '';
+        dlg.showModal();
+      });
+    });
+    document.getElementById('lb-close').addEventListener('click', function () {
+      dlg.close();
+    });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+  }
+})();</script>
+</body>
+</html>

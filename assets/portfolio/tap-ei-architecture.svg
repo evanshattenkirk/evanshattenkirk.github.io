@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">TAP-EI architecture illustration</title>
+  <desc id="desc">A conceptual diagram of vessel evidence flowing through authorized engineering search into source-cited answers and field reports. The project is in development. This is an architecture illustration, not a product screenshot.</desc>
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#244454" stroke-width="1"/></pattern><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#72c9bc" stroke-width="1.5"/></marker></defs>
+  <rect width="1200" height="720" fill="#102c3c"/><rect width="1200" height="720" fill="url(#grid)" opacity=".45"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="78" font-size="18" letter-spacing="3" fill="#87d4c8">TAP MARINE · ENGINEERING INTELLIGENCE</text>
+    <text x="64" y="143" font-size="42" font-weight="700" fill="#f2f6f5">From vessel evidence to a cited answer.</text>
+    <text x="64" y="183" font-size="21" fill="#b7cbd1">Authorized access. Shared context. A source behind the response.</text>
+    <g fill="#183b4c" stroke="#496777" stroke-width="1.5">
+      <rect x="64" y="275" width="278" height="240" rx="18"/><rect x="460" y="275" width="278" height="240" rx="18"/><rect x="856" y="275" width="278" height="240" rx="18"/>
+    </g>
+    <g fill="none" stroke="#72c9bc" stroke-width="2.5">
+      <path d="M342 394H442" marker-end="url(#arrow)"/><path d="M738 394H838" marker-end="url(#arrow)"/>
+      <path d="M96 315h32l15 15v46H96zM128 315v16h15M106 346h26M106 357h20"/>
+      <circle cx="505" cy="341" r="22"/><path d="M521 357l17 17M495 341h20M505 331v20"/>
+      <path d="M890 319h45v51h-45zM900 331h25M900 342h25M900 353h17M932 363l7 7 15-18"/>
+    </g>
+    <g fill="#f2f6f5" font-size="26" font-weight="700"><text x="94" y="423">Vessel evidence</text><text x="490" y="423">Engineering search</text><text x="886" y="423">Cited answers</text></g>
+    <g fill="#b7cbd1" font-size="19"><text x="94" y="458">Drawings &amp; field captures</text><text x="490" y="458">Tenant-scoped retrieval</text><text x="886" y="458">Evidence &amp; field reports</text><text x="94" y="486">Documents &amp; imagery</text><text x="490" y="486">Postgres row-level security</text><text x="886" y="486">Review in context</text></g>
+    <path d="M64 576H1134" stroke="#496777"/>
+    <text x="64" y="622" fill="#87d4c8" font-size="17" letter-spacing="2">ARCHITECTURE ILLUSTRATION · IN DEVELOPMENT</text>
+    <text x="64" y="659" fill="#b7cbd1" font-size="18">Next.js · Supabase / Postgres · Python worker</text>
+  </g>
+</svg>

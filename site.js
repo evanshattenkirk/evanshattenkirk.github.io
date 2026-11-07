@@ -65,6 +65,73 @@
         );
     });
   });
+  // Manual product gallery. Off-screen slides stay out of the focus order.
+  document.querySelectorAll(".product-carousel").forEach((carousel) => {
+    const track = carousel.querySelector(".carousel-track");
+    const slides = [...carousel.querySelectorAll(".carousel-slide")];
+    const previous = carousel.querySelector(".carousel-prev");
+    const next = carousel.querySelector(".carousel-next");
+    const title = carousel.querySelector(".carousel-title");
+    const counter = carousel.querySelector(".carousel-counter");
+    const viewport = carousel.querySelector(".carousel-viewport");
+    let active = 0;
+    let start = null;
+    let suppressClickUntil = 0;
+    function showSlide(requested) {
+      const index = Math.max(0, Math.min(slides.length - 1, requested));
+      if (index === active) return;
+      const moveFocus = slides[active].contains(document.activeElement);
+      active = index;
+      track.style.transform = `translateX(${-active * 100}%)`;
+      slides.forEach((slide, i) => {
+        slide.inert = i !== active;
+        slide.setAttribute("aria-hidden", String(i !== active));
+      });
+      title.textContent = slides[active].dataset.caption;
+      counter.textContent = `${active + 1} / ${slides.length}`;
+      previous.setAttribute("aria-disabled", String(active === 0));
+      next.setAttribute("aria-disabled", String(active === slides.length - 1));
+      if (moveFocus)
+        slides[active].querySelector("a").focus({ preventScroll: true });
+    }
+    previous.addEventListener("click", () => showSlide(active - 1));
+    next.addEventListener("click", () => showSlide(active + 1));
+    carousel.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+        return;
+      event.preventDefault();
+      if (event.key === "Home") showSlide(0);
+      else if (event.key === "End") showSlide(slides.length - 1);
+      else showSlide(active + (event.key === "ArrowRight" ? 1 : -1));
+    });
+    viewport.addEventListener("pointerdown", (event) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      start = { x: event.clientX, y: event.clientY, id: event.pointerId };
+    });
+    viewport.addEventListener("dragstart", (event) => event.preventDefault());
+    viewport.addEventListener("pointercancel", () => {
+      start = null;
+    });
+    viewport.addEventListener("pointerup", (event) => {
+      if (!start || event.pointerId !== start.id) return;
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      start = null;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+      suppressClickUntil = performance.now() + 400;
+      showSlide(active + (dx < 0 ? 1 : -1));
+    });
+    viewport.addEventListener(
+      "click",
+      (event) => {
+        if (performance.now() >= suppressClickUntil) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      },
+      true,
+    );
+    carousel.classList.add("is-ready");
+  });
   const dialog = document.getElementById("lightbox");
   const enlarged = document.getElementById("lb-img");
   let imageTrigger;
@@ -73,9 +140,11 @@
       link.addEventListener("click", (event) => {
         event.preventDefault();
         imageTrigger = link;
-        document.getElementById("lightbox-title").textContent =
-          link.closest("figure")?.querySelector("figcaption")?.textContent ||
-          "Product interface · Fictional data";
+        const slideCaption = link.closest(".carousel-slide")?.dataset.caption;
+        document.getElementById("lightbox-title").textContent = slideCaption
+          ? `Pastefront: ${slideCaption} · Public site and sample-store views`
+          : link.closest("figure")?.querySelector("figcaption")?.textContent ||
+            "Product interface · Fictional data";
         enlarged.src = link.href;
         enlarged.alt =
           link.querySelector("img")?.alt || "Enlarged interface view";

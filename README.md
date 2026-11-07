@@ -14,7 +14,7 @@ Use a static server for local preview. A server with HTTP byte-range support is 
 ## Visual provenance and scope
 
 - AppraisalIQ and IG Pipeline images/videos are explicitly fictional interface recreations, retained from the prior portfolio. They do not expose employer records.
-- Pastefront images are the repository's example store/dashboard assets, showing sample data.
+- The Pastefront gallery starts with the public homepage, then uses the product repository's sample-store management, chat editor, and A/B test screenshots. The gallery is manual, with arrows, keyboard navigation, swipe support, and a reduced-motion fallback.
 - AgentDesk's screenshot is from the public Trading-Agent repository, explicitly in PAPER mode. It is not a performance claim.
 - Space Planner's image is a capture of the public application's built-in Sample bedroom, not a user's personal plan.
 - TAP-EI is an original, source-grounded architecture illustration. Its foundation is in development with synthetic data and is not deployed for real use. It is not a screenshot.

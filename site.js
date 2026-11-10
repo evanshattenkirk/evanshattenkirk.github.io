@@ -185,14 +185,19 @@
     }),
   );
   // Deep links open a video disclosure before moving to it.
-  function revealHash() {
-    const id = location.hash.slice(1);
+  function reveal(id) {
     const target = id && document.getElementById(id);
     if (!target) return;
     if (target.matches("details")) target.open = true;
     const parent = target.closest("details");
     if (parent) parent.open = true;
   }
+  const revealHash = () => reveal(location.hash.slice(1));
   addEventListener("hashchange", revealHash);
+  // A repeat click on the same link fires no hashchange, so open it here too.
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (link) reveal(link.hash.slice(1));
+  });
   revealHash();
 })();
